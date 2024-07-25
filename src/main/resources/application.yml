@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: project-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/project_service_databases?createTableIfNotExist=true
+    username: root
+    password: 8dipakR0@
+  jpa:
+    hibernate:
+      ddl-auto: create
