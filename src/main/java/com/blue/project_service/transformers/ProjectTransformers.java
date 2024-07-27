@@ -10,6 +10,7 @@ public class ProjectTransformers {
                 .client(createProjectRequest.getClient())
                 .domain(createProjectRequest.getDomain())
                 .startDate(createProjectRequest.getStartDate())
+                .userId(createProjectRequest.getUserId())
                 .build();
     }
 }

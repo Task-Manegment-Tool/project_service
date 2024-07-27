@@ -1,15 +1,28 @@
 package com.blue.project_service.services;
 
 import com.blue.project_service.dtos.CreateProjectRequest;
+import com.blue.project_service.exception.UserIdNotFoundException;
 import com.blue.project_service.models.Project;
+import com.blue.project_service.models.Task;
+import com.blue.project_service.models.User;
 import com.blue.project_service.repositorys.ProjectRepository;
 import com.blue.project_service.transformers.ProjectTransformers;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ProjectService {
+
+    @Autowired
+    private  TaskService taskService;
+
+    @Autowired
+    private  UserService userService;
+
+    @Autowired
     private ProjectRepository projectRepository;
 
     public ProjectService(ProjectRepository projectRepository) {
@@ -18,18 +31,31 @@ public class ProjectService {
 
     public String createProject(CreateProjectRequest createProjectRequest) {
         Project project = ProjectTransformers.convertCreateProjectRequestToProject(createProjectRequest);
-        projectRepository.save(project);
-        return "project save into the database successfully";
+
+        try {
+            Optional<User> optionalUser = Optional.ofNullable(userService.findUserbyId(project.getUserId()).getBody());
+        }
+        catch (Exception e){
+            throw new UserIdNotFoundException("user with user id: " + project.getUserId() + " not present in user table");
+        }
+       Project cretedProject = projectRepository.save(project);
+        return "project save into the database successfully \r\n " +
+                "project id is : " + cretedProject.getId();
     }
 
     public Project getProjectById(Integer projectId) {
-        Optional<Project> optionalProject = projectRepository.findById(projectId);
-        Project project = optionalProject.get();
-        return project;
+
+        Project optionalProject = projectRepository.findById(projectId).orElseThrow(()->new RuntimeException("Project not Found"));
+            List<Task> taskList =taskService.getTasksByProjectId(projectId).getBody();
+            optionalProject.setTaskList(taskList);
+
+            return optionalProject;
+
     }
 
     public String updateProjectById(Integer projectId, Project projectUpdate) {
         Optional<Project> optionalProject = projectRepository.findById(projectId);
+
         if (optionalProject.isPresent()) {
             Project project = optionalProject.get();
             if (projectUpdate.getProjectName() != null) {
