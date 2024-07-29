@@ -1,0 +1,41 @@
+[33mcommit c5c3b1b9eb853d6c5fa85a7864b40a3814240488[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mblue_akash[m[33m)[m
+Author: akash <you@example.com>
+Date:   Sat Jul 27 17:19:35 2024 +0530
+
+    feat:communication of user and project
+
+[33mcommit 1c39cf689f393de976c2e8f1f659fc432b7bfe71[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Merge: 8076414 7334f3e
+Author: Dipak Rekhate <95485355+drekhate@users.noreply.github.com>
+Date:   Fri Jul 26 12:42:32 2024 +0530
+
+    Merge pull request #2 from drekhate/blue-project
+    
+    yml updated
+
+[33mcommit 7334f3e6732e68364579550ab52497f28346a209[m[33m ([m[1;31morigin/blue-project[m[33m)[m
+Author: direkhate <direkhate@gmail.com>
+Date:   Fri Jul 26 12:31:20 2024 +0530
+
+    yml updated
+
+[33mcommit 80764147c951c2e04f84b6c0f4002c03aaa6d49d[m
+Merge: 33c7280 e6750b0
+Author: Dipak Rekhate <95485355+drekhate@users.noreply.github.com>
+Date:   Thu Jul 25 11:55:04 2024 +0530
+
+    Merge pull request #1 from drekhate/blue-project
+    
+    project service done
+
+[33mcommit e6750b0c398b0f22c9939da177b303bcfa2a72e0[m
+Author: direkhate <direkhate@gmail.com>
+Date:   Wed Jul 24 12:20:23 2024 +0530
+
+    project service done
+
+[33mcommit 33c7280b7a615c9e846082cc173fce36010de997[m
+Author: direkhate <direkhate@gmail.com>
+Date:   Thu Jul 18 11:40:27 2024 +0530
+
+    initial commit
