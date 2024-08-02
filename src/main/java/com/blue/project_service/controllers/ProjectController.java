@@ -26,13 +26,15 @@ public class ProjectController {
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
     @GetMapping(value = "/getProjectById/{projectId}")
-    public ResponseEntity<Project> getProjectById(@PathVariable("projectId") Integer projectId) throws  Exception {
+    public ResponseEntity<Project> getProjectById(@PathVariable("projectId") Integer projectId) {
         Project result = projectService.getProjectById(projectId);
-
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-
-
+    @GetMapping("/getProjectByUserId")
+    public ResponseEntity<Project> getProjectByUserId(@RequestParam("userId") Long userId) {
+        Project project = projectService.getProjectByUserId(userId);
+        return new ResponseEntity<>(project, HttpStatus.OK);
+    }
     @PatchMapping("/updateProjectById/{projectId}")
     public ResponseEntity<String> updateProjectById(@PathVariable("projectId") Integer projectId, @RequestBody Project projectUpdate) {
         String result = projectService.updateProjectById(projectId, projectUpdate);
