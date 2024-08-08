@@ -1,6 +1,7 @@
 package com.blue.project_service.services;
 
 import com.blue.project_service.dtos.CreateProjectRequest;
+import com.blue.project_service.exception.ProjectWithUserIdNotFoundException;
 import com.blue.project_service.exception.UserIdNotFoundException;
 import com.blue.project_service.models.Project;
 import com.blue.project_service.models.Task;
@@ -35,11 +36,15 @@ public class ProjectService {
     @Transactional()
     public String createProject(CreateProjectRequest createProjectRequest) {
         Project project = ProjectTransformers.convertCreateProjectRequestToProject(createProjectRequest);
-
+        Optional<User> optionalUser = Optional.ofNullable(userService.findUserbyId(project.getUserId()).getBody());
         try {
+<<<<<<< HEAD
             System.out.println("1111111111111111");
             System.out.println(project.getUserId());
             Optional<User> optionalUser = Optional.ofNullable(userService.findUserbyId(project.getUserId()).getBody());
+=======
+            optionalUser.get();
+>>>>>>> b946916ca33f426ea4f1b18e85c82ea928b5cf4e
         }
         catch (Exception e){
             throw new UserIdNotFoundException("user with user id: " + project.getUserId() + " not present in user table");
@@ -94,5 +99,16 @@ public class ProjectService {
             projectRepository.deleteById(projectId);
             return "project with projectId: " + projectId + " deleted succesfully";
         }
+    }
+
+    public Project getProjectByUserId(Long userId) {
+        Optional<Project> optionalProject = Optional.ofNullable(projectRepository.findByUserId(userId));
+        Project project;
+        if (optionalProject.isPresent()) {
+            project = optionalProject.get();
+        } else {
+            throw new ProjectWithUserIdNotFoundException("user id: " + userId + " not present into the database");
+        }
+        return project;
     }
 }
