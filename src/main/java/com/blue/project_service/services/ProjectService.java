@@ -7,11 +7,13 @@ import com.blue.project_service.models.Task;
 import com.blue.project_service.models.User;
 import com.blue.project_service.repositorys.ProjectRepository;
 import com.blue.project_service.transformers.ProjectTransformers;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
 
 @Service
 public class ProjectService {
@@ -25,19 +27,25 @@ public class ProjectService {
     @Autowired
     private ProjectRepository projectRepository;
 
+
     public ProjectService(ProjectRepository projectRepository) {
         this.projectRepository = projectRepository;
     }
 
+    @Transactional()
     public String createProject(CreateProjectRequest createProjectRequest) {
         Project project = ProjectTransformers.convertCreateProjectRequestToProject(createProjectRequest);
 
         try {
+            System.out.println("1111111111111111");
+            System.out.println(project.getUserId());
             Optional<User> optionalUser = Optional.ofNullable(userService.findUserbyId(project.getUserId()).getBody());
         }
         catch (Exception e){
             throw new UserIdNotFoundException("user with user id: " + project.getUserId() + " not present in user table");
         }
+        System.out.println(project);
+
        Project cretedProject = projectRepository.save(project);
         return "project save into the database successfully \r\n " +
                 "project id is : " + cretedProject.getId();
